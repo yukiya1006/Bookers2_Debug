@@ -1,0 +1,68 @@
+<div class="container px-5 px-sm-0">
+  <div class="row">
+
+  <%= render "users/info", book: @book_new, user: @user, follower_users: @follower_users, following_users: @following_users %>
+
+    <div class="col-md-8 offset-md-1">
+      <h2>Book detail</h2>
+        <table class="table text-light">
+      	  <tbody>
+      		  <tr>
+              <td>
+                <%= image_tag @book.user.get_profile_image, size: "50x50" %>
+                <p><%= link_to user_path(@user), class: "btn btn-sm btn-outline-light mt-1" do %>
+                <%= @user.name %>
+                <% end %>
+                </p>
+              </td>
+              <td><%= @book.title %></td>
+              <td><%= @book.body %></td>
+              <td>
+                <% if @book.user == current_user %>
+                <%= link_to "Edit", edit_book_path, class: "btn btn-sm btn-success" %>
+                <% end %>
+              </td>
+              <td>
+                <% if @book.user == current_user %>
+                <%= link_to "Destroy", book_path(@book.id), class: "btn btn-sm btn-danger", method: :delete, "data-confirm" => "本当に削除しますか？" %>
+                <% end %>
+              </td>
+              <td>
+                <% if @book.favorited_by?(current_user) %>
+                <p>
+                  <%= link_to book_favorites_path(@book), method: :delete, class: "text-danger" do %>
+                  ♥<%= @book.favorites.count %> いいね
+                <% end %>
+                </p>
+                <% else %>
+                <p>
+                  <%= link_to book_favorites_path(@book), method: :post, class: "text-light" do %>
+                  ♡<%= @book.favorites.count %> いいね
+                <% end %>
+                </p>
+                <% end %>
+              </td>
+              <td>
+                <p>コメント件数：<%= @book.book_comments.count %></p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+          <% @book.book_comments.each do |book_comment| %>
+          <p><%= image_tag book_comment.user.get_profile_image, size: "50x50" %></p>
+
+          <%= link_to book_comment.user.name, user_path(@user), class: "btn btn-xsm btn-outline-light mb-3" %>
+           <%= book_comment.comment %>
+          <% if book_comment.user == current_user %>
+            <%= link_to "Destroy", book_book_comment_path(book_comment.book, book_comment), class: "btn btn-sm btn-danger", method: :delete %>
+          <% end %>
+          <% end %>
+          <div>
+          <%= form_with model: [@book, @book_comment] do |f| %>
+          <%= f.text_area :comment, size: "100", placeholder: "コメントをここに" %>
+          <%= f.submit "送信" %>
+          <% end %>
+          </div>
+    </div>
+  </div>
+</div>

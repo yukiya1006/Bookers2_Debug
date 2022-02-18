@@ -1,0 +1,13 @@
+<div class='container px-5 px-sm-0'>
+  <div class='row'>
+
+      <%= render 'users/info', user: @user, book: @book, follower_users: @follower_users, following_users: @following_users %>
+
+    <div class='col-md-8 offset-md-1'>
+      <h2>Books</h2>
+
+      <%= render 'books/index', books: @books %>
+
+    </div>
+  </div>
+</div>
