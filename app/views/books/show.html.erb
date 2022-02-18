@@ -5,12 +5,12 @@
 
     <div class="col-md-8 offset-md-1">
       <h2>Book detail</h2>
-        <table class="table text-light">
+        <table class="table">
       	  <tbody>
       		  <tr>
               <td>
                 <%= image_tag @book.user.get_profile_image, size: "50x50" %>
-                <p><%= link_to user_path(@user), class: "btn btn-sm btn-outline-light mt-1" do %>
+                <p><%= link_to user_path(@user), class: "mt-1" do %>
                 <%= @user.name %>
                 <% end %>
                 </p>
@@ -51,7 +51,7 @@
           <% @book.book_comments.each do |book_comment| %>
           <p><%= image_tag book_comment.user.get_profile_image, size: "50x50" %></p>
 
-          <%= link_to book_comment.user.name, user_path(@user), class: "btn btn-xsm btn-outline-light mb-3" %>
+          <%= link_to book_comment.user.name, user_path(@user), class: "mb-3" %>
            <%= book_comment.comment %>
           <% if book_comment.user == current_user %>
             <%= link_to "Destroy", book_book_comment_path(book_comment.book, book_comment), class: "btn btn-sm btn-danger", method: :delete %>
