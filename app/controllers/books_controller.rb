@@ -25,6 +25,8 @@ class BooksController < ApplicationController
     else
       @books = Book.all
       @user = current_user
+      @following_users = @user.following_user #@userがフォローしている人達
+      @follower_users = @user.follower_user #@userをフォローしている人達
       render 'index'
     end
   end

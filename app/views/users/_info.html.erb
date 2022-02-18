@@ -50,10 +50,9 @@
     </tbody>
   </table>
   <div>
-    <% if current_user == user %>
-    <%= link_to edit_user_path(user), class: "btn btn-outline-success btn-block", method: :get do %>
+    <%# if current_user == user %>
+    <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block", method: :get do %>
     <i class="fas fa-user-cog"></i>
-    <% end %>
     <% end %>
   </div>
 

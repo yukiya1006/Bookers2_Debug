@@ -35,20 +35,20 @@ class UsersController < ApplicationController
     end
   end
 
-  def follows
-    @users = User.all
-    @user = current_user
-    @following_users = @user.following_user #@userがフォローしている人達
-    @follower_users = @user.follower_user #@userをフォローしている人達
+  # def follows
+  #   @users = User.all
+  #   @user = current_user
+  #   @following_users = @user.following_user #@userがフォローしている人達
+  #   @follower_users = @user.follower_user #@userをフォローしている人達
    
-  end
+  # end
 
-  def followers
-    @users = User.all
-    @user = current_user
-    @following_users = @user.following_user #@userがフォローしている人達
-    @follower_users = @user.follower_user #@userをフォローしている人達
-  end
+  # def followers
+  #   @users = User.all
+  #   @user = current_user
+  #   @following_users = @user.following_user #@userがフォローしている人達
+  #   @follower_users = @user.follower_user #@userをフォローしている人達
+  # end
 
   private
 
