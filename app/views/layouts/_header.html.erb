@@ -10,9 +10,12 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
           
-        <%= render "searches/search", user: @user %>   
+           
           
         <% if user_signed_in? %>
+        
+        <%= render "searches/search", user: @user %>
+        
           <li>
             <%= link_to user_path(current_user), class: 'nav-link text-light' do %>
               <i class="fas fa-home"></i> home
