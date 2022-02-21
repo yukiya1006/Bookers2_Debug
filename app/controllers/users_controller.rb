@@ -2,11 +2,12 @@ class UsersController < ApplicationController
   before_action :ensure_correct_user, only: [:update]
 
   def show
-    @user = User.find(params[:id])
+    @user = User.find(params[:id]) 
     @books = @user.books
     @book = Book.new
     @following_users = @user.following_user #@userがフォローしている人達
     @follower_users = @user.follower_user #@userをフォローしている人達
+    
 
   end
 
@@ -34,21 +35,22 @@ class UsersController < ApplicationController
       render "edit"
     end
   end
-
-  # def follows
-  #   @users = User.all
-  #   @user = current_user
-  #   @following_users = @user.following_user #@userがフォローしている人達
-  #   @follower_users = @user.follower_user #@userをフォローしている人達
-   
+  
+  # def search
+  # @posts = Post.search(params[:keyword])
+  # @keyword = params[:keyword]
+  # render "index"
   # end
 
-  # def followers
-  #   @users = User.all
-  #   @user = current_user
-  #   @following_users = @user.following_user #@userがフォローしている人達
-  #   @follower_users = @user.follower_user #@userをフォローしている人達
-  # end
+  def follows
+    @user = User.find(params[:id])
+    @users = @user.following_user.all
+  end
+
+  def followers
+    @user = User.find(params[:id])
+    @users = @user.follower_user.all
+  end
 
   private
 
@@ -62,5 +64,4 @@ class UsersController < ApplicationController
       redirect_to user_path(current_user)
     end
   end
-
 end
