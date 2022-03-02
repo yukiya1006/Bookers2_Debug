@@ -1,13 +1,38 @@
-<div class='container px-5 px-sm-0'>
-  <div class='row'>
-
-      <%= render 'info', user: @user, book: @book, follower_users: @follower_users, following_users: @following_users %>
-
-      <div class='col-md-8 offset-md-1'>
+<div class='container-fluid'>
+  <div class='row px-0'>
+    <%= render 'info', user: @user, book: @book, follower_users: @follower_users, following_users: @following_users %>
+      <div class='col-md-4'>
       <h2>Books</h2>
-
       <%= render 'books/index', books: @books %>
-
     </div>
+      <div class="col-md-6">
+      <%= render 'books/create_count',
+      users: @users,
+      today_book: @today_book,
+      yesterday_book: @yesterday_book,
+      this_week_book: @this_week_book,
+      last_week_book: @last_week_book,
+      the_day_before: @the_day_before,
+      the_week_before: @the_week_before,
+      six_days_ago_book: @six_days_ago_book,
+      five_days_ago_book: @five_days_ago_book,
+      four_days_ago_book: @four_days_ago_book,
+      three_days_ago_book: @three_days_ago_book,
+      two_days_ago_book: @two_days_ago_book
+      %>
+
+      <div class="graph">
+       <%= render "books/graph",
+        today_book: @today_book,
+        yesterday_book: @yesterday_book,
+        six_days_ago_book: @six_days_ago_book,
+        five_days_ago_book: @five_days_ago_book,
+        four_days_ago_book: @four_days_ago_book,
+        three_days_ago_book: @three_days_ago_book,
+        two_days_ago_book: @two_days_ago_book
+       %>
+     </div>
+     </div>
   </div>
 </div>
+

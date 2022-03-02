@@ -1,0 +1,54 @@
+<canvas id="myLineChart"></canvas>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+
+  <script>
+  var ctx = document.getElementById("myLineChart");
+  var myLineChart = new Chart(ctx, {
+    // グラフタイプを設定する項目
+    type: 'line',
+
+    // データをセットする項目
+    data: {
+      labels: ['6日前', '５日前', '４日前', '３日前', '２日前', '１日前', '今日'],
+      datasets: [
+        {
+          label: '投稿した本の数',
+          data:
+          [<%=six_days_ago_book.count %>,
+          <%=five_days_ago_book.count %> ,
+          <%=four_days_ago_book.count %>,
+          <%=three_days_ago_book.count %>,
+          <%=two_days_ago_book.count %>,
+          <%=yesterday_book.count %>,
+          <%=today_book.count %>
+          ],
+          borderColor: "blue",
+          backgroundColor: "grey"
+        },
+      ],
+    },
+
+    // グラフのオプションをつける設定
+    options: {
+      title: {
+        display: true,
+        text: '７日間の本の投稿数'
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            suggestedMax: 10,
+            suggestedMin: 0,
+            stepSize: 1,
+            callback: function(value, index, values){
+              return  value
+            }
+          }
+        }]
+      },
+    }
+  });
+  </script>
+</body>
+
+</html>

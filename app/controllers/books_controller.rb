@@ -5,6 +5,8 @@ class BooksController < ApplicationController
     @book_comment = BookComment.new
     @book_new = Book.new
     @user = @book.user
+    
+    #フォローに関して
     @following_users = @user.following_user #@userがフォローしている人達
     @follower_users = @user.follower_user #@userをフォローしている人達
   end
