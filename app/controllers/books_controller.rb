@@ -1,24 +1,26 @@
 class BooksController < ApplicationController
+  before_action :authenticate_user!
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
 
+# findメソッドでモデルと紐づくテーブルのDBからbookのレコードを1つ取得
+# newメソッドでbookコメントを作成
   def show
     @book = Book.find(params[:id])
     @book_comment = BookComment.new
-    @book_new = Book.new
-    @user = @book.user
-    
-    #フォローに関して
-    @following_users = @user.following_user #@userがフォローしている人達
-    @follower_users = @user.follower_user #@userをフォローしている人達
   end
+
+# allメソッドでモデルと紐づくbookのすべてのレコードを取得
+# newメソッドでbookを作成(bookクラスをインスタンス化)
 
   def index
     @books = Book.all
     @book = Book.new
-    @user = current_user
-    @following_users = @user.following_user #@userがフォローしている人達
-    @follower_users = @user.follower_user #@userをフォローしている人達
   end
 
+# newメソッドでbookクラスをインスタンス化(カラムを引数として渡す)
+# user_id = current_user.idでログインしている本人かどうか確認
+# saveメソッドでbook作成
+# renderはコントローラーを介さず直接viewを表示させるため表示先の変数を表記
   def create
     @book = Book.new(book_params)
     @book.user_id = current_user.id
@@ -26,12 +28,10 @@ class BooksController < ApplicationController
       redirect_to book_path(@book), notice: "You have created book successfully."
     else
       @books = Book.all
-      @user = current_user
-      @following_users = @user.following_user #@userがフォローしている人達
-      @follower_users = @user.follower_user #@userをフォローしている人達
       render 'index'
     end
   end
+
 
   def edit
     @book = Book.find(params[:id])
@@ -51,8 +51,7 @@ class BooksController < ApplicationController
   end
 
   def destroy
-    book = Book.find(params[:id])
-    book.destroy
+    @book.destroy
     redirect_to books_path
   end
 
@@ -60,5 +59,12 @@ class BooksController < ApplicationController
 
   def book_params
     params.require(:book).permit(:title, :body)
+  end
+
+  def ensure_correct_user
+    @book = Book.find(params[:id])
+    unless @book.user == current_user
+      redirect_to books_path
+    end
   end
 end
